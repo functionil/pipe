@@ -8,7 +8,7 @@ namespace Functionil\Pipe;
  * Any instance of this class in the supplied arguments to
  * a pipe will be replaced by the subject in the pipeline.
  */
-final readonly class Placeholder {
+final class Placeholder {
     /** @internal prefer to use the global `_` constant */
     public final function __construct() {}
 }

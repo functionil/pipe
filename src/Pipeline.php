@@ -2,33 +2,7 @@
 
 namespace Functionil\Pipe;
 
-/**
- * Invoke a single pipe (callable) with the subject in the pipeline.
- * This function also allows for partial application.
- *
- * @param mixed $subject
- * @param array $arguments
- * @param callable $pipe
- * @return Pipeline
- * @internal
- */
-function invoke_with(mixed $subject, array $arguments, callable $pipe): Pipeline {
-    foreach ($arguments as $idx => $argument) {
-        if (!($argument instanceof Placeholder)) {
-            continue;
-        }
-
-        $arguments[$idx] = $subject;
-        $substituted = true;
-    }
-
-    if (empty($arguments)) $arguments = [$subject];
-    else if (!($substituted ?? false)) array_unshift($arguments, $subject);
-
-    return Pipeline::new($pipe(...$arguments));
-}
-
-final readonly class Pipeline
+final class Pipeline
 {
     private final function __construct(private mixed $subject) {}
 
@@ -59,9 +33,10 @@ final readonly class Pipeline
      * @param callable $pipe
      * @return Pipeline
      */
-    public function _(callable $pipe): Pipeline
+    public function _(callable $pipe): self
     {
-        return new Pipeline($pipe($this->subject));
+        $this->subject = $pipe($this->subject);
+        return $this;
     }
 
     /**
@@ -71,9 +46,10 @@ final readonly class Pipeline
      * @param callable-string $name
      * @return Pipeline
      */
-    public function __get(string $name): Pipeline
+    public function __get(string $name): self
     {
-        return new Pipeline($name($this->subject));
+        $this->subject = $name($this->subject);
+        return $this;
     }
 
     /**
@@ -84,9 +60,22 @@ final readonly class Pipeline
      * @param array $arguments
      * @return Pipeline
      */
-    public function __call(string $name, array $arguments): Pipeline
+    public function __call(string $name, array $arguments): self
     {
-        return invoke_with($this->subject, $arguments, $name);
+        foreach ($arguments as $idx => $argument) {
+            if (!($argument instanceof Placeholder)) {
+                continue;
+            }
+
+            $arguments[$idx] = $this->subject;
+            $substituted = true;
+        }
+
+        if (empty($arguments)) $arguments = [$this->subject];
+        else if (!($substituted ?? false)) array_unshift($arguments, $this->subject);
+
+        $this->subject = $name(...$arguments);
+        return $this;
     }
 
     public function __clone()
