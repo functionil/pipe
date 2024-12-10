@@ -13,7 +13,7 @@ It's not actual language support, but with PHP's abundant magic, this package co
 If you've ever worked with pipe operators in other languages: yeah, it's basically like those.
 
 The only real difference is that you must apply the `pipe` function on your initial item, this just 
-constructs a `Pipeline` with your subject, (the value you pass the function.)
+constructs a `pipeline` with your subject, (the value you pass the function.)
 
 Here's how a basic example might look.
 
@@ -31,8 +31,8 @@ As you may have noticed, the `add` function gets called with only one argument. 
 the pipeline automatically inserts the item in the pipeline as the first argument to whatever function you're invoking.
 This approach aligns with the convention of designing functions to be data-first, ensuring a consistent workflow within the pipeline.
 
-One caveat is that since all of this magic is backed up by a class, the `Pipeline`, we have to call `get` on it to
-eventually actually have a value that *isn't* a `Pipeline`. 
+One caveat is that since all of this magic is backed up by a class, the `pipeline`, we have to call `get` on it to
+eventually actually have a value that *isn't* a `pipeline`. 
 
 ### Partial application
 
