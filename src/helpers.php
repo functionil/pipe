@@ -1,10 +1,10 @@
 <?php
 
-use Functionil\Pipe\Pipeline;
-use Functionil\Pipe\Placeholder;
+use functionil\pipe\pipeline;
+use functionil\pipe\placeholder;
 
 if (!defined('_')) {
-    define('_', new Placeholder);
+    define('_', new placeholder);
 }
 
 if (!function_exists('pipe')) {
@@ -12,10 +12,10 @@ if (!function_exists('pipe')) {
      * Construct a new `Pipe` instance.
      *
      * @param mixed $subject
-     * @return Pipeline
+     * @return pipeline
      */
-    function pipe(mixed $subject): Pipeline {
-        return Pipeline::new($subject);
+    function pipe(mixed $subject): pipeline {
+        return pipeline::new($subject);
     }
 }
 
@@ -24,9 +24,9 @@ if (!function_exists('take')) {
      * Construct a new `Pipe` instance.
      *
      * @param mixed $subject
-     * @return Pipeline
+     * @return pipeline
      */
-    function take(mixed $subject): Pipeline {
-        return Pipeline::new($subject);
+    function take(mixed $subject): pipeline {
+        return pipeline::new($subject);
     }
 }

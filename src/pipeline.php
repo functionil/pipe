@@ -1,8 +1,8 @@
 <?php
 
-namespace Functionil\Pipe;
+namespace functionil\pipe;
 
-final class Pipeline
+final class pipeline
 {
     private final function __construct(private mixed $subject) {}
 
@@ -10,11 +10,11 @@ final class Pipeline
      * Construct a new `Pipe` instance.
      *
      * @param mixed $subject
-     * @return Pipeline
+     * @return pipeline
      */
-    public static function new(mixed $subject): Pipeline
+    public static function new(mixed $subject): pipeline
     {
-        return new Pipeline($subject);
+        return new pipeline($subject);
     }
 
     /**
@@ -31,7 +31,7 @@ final class Pipeline
      * Pass the subject through a pipe that only takes one argument.
      *
      * @param callable $pipe
-     * @return Pipeline
+     * @return pipeline
      */
     public function _(callable $pipe): self
     {
@@ -44,7 +44,7 @@ final class Pipeline
      * any arguments besides the subject itself.
      *
      * @param callable-string $name
-     * @return Pipeline
+     * @return pipeline
      */
     public function __get(string $name): self
     {
@@ -58,12 +58,12 @@ final class Pipeline
      *
      * @param callable-string $name
      * @param array $arguments
-     * @return Pipeline
+     * @return pipeline
      */
     public function __call(string $name, array $arguments): self
     {
         foreach ($arguments as $idx => $argument) {
-            if (!($argument instanceof Placeholder)) {
+            if (!($argument instanceof placeholder)) {
                 continue;
             }
 

@@ -1,12 +1,12 @@
 {
     "name": "functionil/pipe",
-    "version": "0.1.2",
-    "description": "A simple and refreshing pipe operator-like experience in simple PHP.",
+    "version": "0.1.3",
+    "description": "A simple and refreshing pipe operator-like experience in PHP.",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Functionil\\Pipe\\": "src/"
+            "functionil\\pipe\\": "src/"
         },
         "files": [
             "src/helpers.php"
